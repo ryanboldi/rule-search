@@ -9,6 +9,8 @@ class Grid {
         this.height = height;
 
         this.cells = new Array(this.width).fill(0).map(() => new Array(this.height).fill(0));
+        this.cells[5][5] = 1;
+        this.cells[4][5] = 1;
 
         this.gridSizeWarned = false;
     }
@@ -22,6 +24,15 @@ class Grid {
             }
         }
 
+        //draw all of the boxes
+        fill(1);
+        for (let i = 0; i < this.width; i++){
+            for (let j = 0; j < this.height; j++){
+                if (this.cells[i][j] == 1){
+                    rect(topLeftX + (i * gridSize), topLeftY + (j * gridSize), gridSize, gridSize); 
+                }
+            }
+        }
 
         //draw the vertical lines
         for (let i = 0; i < this.width; i++){
@@ -37,7 +48,30 @@ class Grid {
         strokeWeight(2);
         noFill();
         rect(topLeftX, topLeftY, topLeftX + (gridSize * this.width), topLeftY + (gridSize * this.height));
-        strokeWeight(1);
-        
+        strokeWeight(1);  
+    }
+
+    getCellAt(x, y){
+        return (this.cells[x % this.width][y % this.height]);
+    }
+
+    /**
+     * returns an array of the cells around (and including) a cell at (x, y)
+     * @param {Number} x x-value of the center
+     * @param {Number} y y-value of the center 
+     */
+    getSurroundings(x, y){
+        let positionsX = [x - 1, x, x + 1];
+        let positionsY = [y - 1, y, y + 1];
+        let positions = [0, 0, 0, 0, 0, 0, 0, 0, 0];
+        let k = 0;
+        //populate positions array
+        positionsY.forEach((y) => {
+            positionsX.forEach((x) => {
+                positions[k++] = this.getCellAt(x, y)
+            })
+        });
+
+        return positions;
     }
 }

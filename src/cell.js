@@ -1,6 +1,6 @@
 class Cell {
     constructor(){
-        this.brain = new neataptic.Network(8, 1);
+        this.brain = new neataptic.Network(9, 1);
         console.log(this.brain);
     }
 
