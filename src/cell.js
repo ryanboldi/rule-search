@@ -1,8 +1,11 @@
 class Cell {
-    constructor(){
+    constructor(active){
         this.brain = new neataptic.Network(9, 1);
-        console.log(this.brain);
+        
+        this.isActive = active;
     }
+
+    
 
     see(){
         
